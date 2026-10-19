@@ -882,9 +882,12 @@
     "duration_second": "1 second",
     "duration_seconds_plural": "{seconds} seconds",
     "focus": "Focus",
+    "hill_captured": "👑 {name} has taken control of the hill!",
+    "hill_open": "👑 The hill is open! Hold the golden zone to win.",
     "hydrogen_bomb_detonated": "{name} - hydrogen bomb detonated",
     "hydrogen_bomb_inbound": "{name} - hydrogen bomb inbound",
     "ignore": "Ignore",
+    "meteor_impact": "☄️ A meteor crashed into your territory ({tiles} tiles lost)",
     "mirv_inbound": "⚠️⚠️⚠️ {name} - MIRV INBOUND ⚠️⚠️⚠️",
     "missile_intercepted": "SAM intercepted {unit}",
     "naval_invasion_inbound": "Naval invasion incoming from {name} ({troops})",
@@ -902,6 +905,7 @@
     "sent_gold_to_player": "Sent {gold} gold to {name}",
     "sent_troops_to_player": "Sent {troops} troops to {name}",
     "trade_ship_captured": "Your trade ship was captured by {name}",
+    "underdog_bonus": "Underdog bonus: you earn +{percent}% troops and gold to fight back!",
     "unit_destroyed": "Your {unit} was destroyed",
     "unit_voluntarily_deleted": "Unit voluntarily deleted",
     "wants_to_renew_alliance": "{name} wants to renew your alliance"
@@ -994,6 +998,8 @@
     "teams": "Teams"
   },
   "game_settings": {
+    "blitz": "Blitzkrieg",
+    "blitz_desc": "Double troop and gold income, half the build and missile reload times",
     "bots": "Tribes: ",
     "compact_map": "Compact Map",
     "custom_alliances": "Alliance Duration",
@@ -1003,7 +1009,11 @@
     "infinite_gold": "Infinite gold",
     "infinite_troops": "Infinite troops",
     "instant_build": "Instant build",
+    "king_of_the_hill": "King of the Hill",
+    "king_of_the_hill_desc": "A golden hill opens in the middle of the map after 3 minutes: the first side to hold it for 5 minutes in total wins",
     "max_timer": "Game length (minutes)",
+    "meteor_shower": "Meteor Shower",
+    "meteor_shower_desc": "Meteors crash on random land every 15-30 seconds, destroying territory, troops and buildings",
     "mins_placeholder": "Mins",
     "nations": "Nations: ",
     "options": "Options",
@@ -1012,6 +1022,8 @@
     "start": "Start Game",
     "starting": "Starting…",
     "starting_gold": "Starting Gold (Millions)",
+    "underdog": "Underdog Comeback",
+    "underdog_desc": "Sides holding less than a quarter of the leader's land earn +50% troops and gold",
     "water_nukes": "Water nukes"
   },
   "game_starting_modal": {
@@ -1359,6 +1371,13 @@
     "host_left": "The host has left the lobby.",
     "lobby_creator": "Kicked by lobby creator",
     "match_cancelled": "Match cancelled: a player failed to connect. You have not lost any ELO."
+  },
+  "king_of_the_hill": {
+    "holder": "Controlled by: {name}",
+    "nobody": "nobody",
+    "opens_in": "The hill opens in {time}",
+    "title": "King of the Hill",
+    "to_win": "Hold {time} to win"
   },
   "lang": {
     "en": "English",

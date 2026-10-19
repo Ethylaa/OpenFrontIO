@@ -11,7 +11,10 @@ import {
 import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
 import { TeamCountConfig } from "@openfront/engine-api/Schemas";
 import { NukeType } from "@openfront/engine-api/StatsSchemas";
-import { Config } from "@openfront/engine-lib/configuration/Config";
+import {
+  Config,
+  MUTATOR_DEFAULTS,
+} from "@openfront/engine-lib/configuration/Config";
 import { exp, log, pow2 } from "@openfront/engine-lib/DetMath";
 import {
   assertNever,
@@ -409,10 +412,11 @@ export class EngineConfig extends Config {
   private goldMultiplierFor(player: PlayerLike): number {
     const base = this.goldMultiplier();
     const hc = this._gameConfig.hostCheats;
-    if (hc?.goldMultiplier && player.isLobbyCreator()) {
-      return hc.goldMultiplier;
-    }
-    return base;
+    const multiplier =
+      hc?.goldMultiplier && player.isLobbyCreator() ? hc.goldMultiplier : base;
+    return this.isBlitz()
+      ? multiplier * MUTATOR_DEFAULTS.blitzIncomeMultiplier
+      : multiplier;
   }
 
   public conquerGoldAmount(captured: PlayerLike): Gold {

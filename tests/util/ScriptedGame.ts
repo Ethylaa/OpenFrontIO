@@ -90,6 +90,8 @@ export function scriptedGameStart(
       instantBuild: false,
       randomSpawn: false,
       doomsdayClock: { enabled: true, speed: "veryfast" },
+      // Run the mutators with executions, so snapshots exercise them too.
+      mutators: { meteorShower: true, kingOfTheHill: true, underdog: true },
       ...overrides,
     },
     players: SCRIPTED_HUMANS.map((clientID, i) => ({

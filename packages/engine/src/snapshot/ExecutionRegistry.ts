@@ -16,7 +16,9 @@ import { EmbargoAllExecutionSnapshot } from "../execution/EmbargoAllExecution";
 import { EmbargoExecutionSnapshot } from "../execution/EmbargoExecution";
 import { EmojiExecutionSnapshot } from "../execution/EmojiExecution";
 import { FactoryExecutionSnapshot } from "../execution/FactoryExecution";
+import { KingOfTheHillExecutionSnapshot } from "../execution/KingOfTheHillExecution";
 import { MarkDisconnectedExecutionSnapshot } from "../execution/MarkDisconnectedExecution";
+import { MeteorShowerExecutionSnapshot } from "../execution/MeteorShowerExecution";
 import { MirvExecutionSnapshot } from "../execution/MIRVExecution";
 import { MissileSiloExecutionSnapshot } from "../execution/MissileSiloExecution";
 import { MoveWarshipExecutionSnapshot } from "../execution/MoveWarshipExecution";
@@ -40,6 +42,7 @@ import { TrainExecutionSnapshot } from "../execution/TrainExecution";
 import { TrainStationExecutionSnapshot } from "../execution/TrainStationExecution";
 import { TransportShipExecutionSnapshot } from "../execution/TransportShipExecution";
 import { TribeExecutionSnapshot } from "../execution/TribeExecution";
+import { UnderdogExecutionSnapshot } from "../execution/UnderdogExecution";
 import { UpgradeStructureExecutionSnapshot } from "../execution/UpgradeStructureExecution";
 import { WarshipExecutionSnapshot } from "../execution/WarshipExecution";
 import { WinCheckExecutionSnapshot } from "../execution/WinCheckExecution";
@@ -70,7 +73,9 @@ export const EXECUTION_SNAPSHOT_TYPES = [
   EmbargoExecutionSnapshot,
   EmojiExecutionSnapshot,
   FactoryExecutionSnapshot,
+  KingOfTheHillExecutionSnapshot,
   MarkDisconnectedExecutionSnapshot,
+  MeteorShowerExecutionSnapshot,
   MirvExecutionSnapshot,
   MissileSiloExecutionSnapshot,
   MoveWarshipExecutionSnapshot,
@@ -94,6 +99,7 @@ export const EXECUTION_SNAPSHOT_TYPES = [
   TrainStationExecutionSnapshot,
   TransportShipExecutionSnapshot,
   TribeExecutionSnapshot,
+  UnderdogExecutionSnapshot,
   UpgradeStructureExecutionSnapshot,
   WarshipExecutionSnapshot,
   WinCheckExecutionSnapshot,

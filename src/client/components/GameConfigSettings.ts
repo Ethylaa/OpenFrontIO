@@ -68,6 +68,7 @@ function renderTextCardButton(
   active: boolean,
   onClick: () => void,
   cardExtraClass: string,
+  tooltip = "",
 ): TemplateResult {
   return html`
     <button
@@ -75,6 +76,7 @@ function renderTextCardButton(
         active,
         cardExtraClass,
       )} flex items-center justify-center"
+      title=${tooltip}
       @click=${onClick}
     >
       <span class="${CARD_LABEL_CLASS} ${stateTextClass(active)}">
@@ -188,6 +190,8 @@ export interface ToggleOptionConfig {
   hidden?: boolean;
   // When set, this toggle's card expands to a pace dropdown while it is checked.
   doomsdayClockSpeed?: DoomsdayClockSpeed;
+  // Translation key of a hover tooltip explaining the option.
+  descKey?: string;
 }
 
 export interface GameConfigSettingsData {
@@ -331,6 +335,7 @@ export class GameConfigSettings extends LitElement {
       toggle.checked,
       () => this.handleOptionToggle(toggle),
       "p-4 text-center",
+      toggle.descKey !== undefined ? translateText(toggle.descKey) : "",
     );
   }
 

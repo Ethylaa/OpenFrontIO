@@ -86,6 +86,11 @@ export class SoundEffectController implements Controller {
       this.emit("game-start");
     }
 
+    // One blast per volley, however many meteors it held.
+    if ((updates[GameUpdateType.MeteorImpact] ?? []).length > 0) {
+      this.emit("atom-hit");
+    }
+
     const myPlayer = this.game.myPlayer();
     if (myPlayer === null) return;
     for (const c of updates[GameUpdateType.ConquestEvent] ?? []) {

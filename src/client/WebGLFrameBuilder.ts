@@ -241,8 +241,22 @@ export class WebGLFrameBuilder {
     this.syncSmallPlayerGlow(gameView);
     this.syncTerrainDeltas(gameView);
     this.syncNukeImpacts(gameView);
+    this.syncHillZone(gameView);
     this.resolveDeadUnitExplosions(gameView);
     uploadFrameData(this.view, gameView.frameData());
+  }
+
+  // Starts as "no zone", so games without the mutator never touch the pass.
+  private hillZoneKey = "0:0";
+  /** Push the King of the Hill zone ring once it is known (or moves). */
+  private syncHillZone(gameView: GameView): void {
+    const hill = gameView.kingOfTheHill();
+    const radius = hill === null || gameView.gameOver() ? 0 : hill.radius;
+    const center = hill?.centerTile ?? 0;
+    const key = `${center}:${radius}`;
+    if (key === this.hillZoneKey) return;
+    this.hillZoneKey = key;
+    this.view.setHillZone(gameView.x(center), gameView.y(center), radius);
   }
 
   /**

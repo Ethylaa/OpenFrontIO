@@ -7,6 +7,7 @@ import {
 import { GameConfig } from "@openfront/engine-api/Schemas";
 import { html, TemplateResult } from "lit";
 import { renderDuration, translateText } from "../../client/Utils";
+import { activeMutators, MUTATOR_LABEL_KEYS } from "./Mutators";
 
 // The homepage lobby card's modifier pill, one size down: a lobby can run a
 // dozen settings and they all have to fit beside the preview.
@@ -133,6 +134,11 @@ export function notableLobbySettings(
     items.push({
       label: translateText("overtime.title"),
       value: renderDuration((c.overtime.startMinutes ?? 30) * 60),
+    });
+  for (const mutator of activeMutators(c.mutators))
+    items.push({
+      label: translateText(MUTATOR_LABEL_KEYS[mutator]),
+      value: enabled,
     });
   if (c.anonymizeNames)
     items.push({
