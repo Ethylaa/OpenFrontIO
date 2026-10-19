@@ -105,6 +105,8 @@ export class AllianceRequestExecution implements Execution {
         UnitType.HydrogenBomb,
         UnitType.MIRV,
         UnitType.MIRVWarhead,
+        UnitType.TacticalMissile,
+        UnitType.EMPBomb,
       ])) {
         if (!unit.isActive() || unit.reachedTarget()) continue;
 

@@ -37,8 +37,10 @@ import {
 } from "./render/gl/utils/PlayerPalette";
 import {
   UT_ATOM_BOMB,
+  UT_EMP_BOMB,
   UT_HYDROGEN_BOMB,
   UT_MIRV_WARHEAD,
+  UT_TACTICAL_MISSILE,
 } from "./render/types/UnitType";
 import type { GameView, PlayerView } from "./view";
 
@@ -64,6 +66,10 @@ const UNIT_TYPE_TO_NUKE_TYPE: Readonly<Record<string, NukeExplosionType>> = {
   [UT_ATOM_BOMB]: "atom",
   [UT_HYDROGEN_BOMB]: "hydro",
   [UT_MIRV_WARHEAD]: "mirvWarhead",
+  // The new bombs have no cosmetic slot of their own: they borrow the
+  // player's atom-bomb shockwave.
+  [UT_TACTICAL_MISSILE]: "atom",
+  [UT_EMP_BOMB]: "atom",
 };
 
 function toRgb01(s: string): [number, number, number] | null {

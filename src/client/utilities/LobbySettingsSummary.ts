@@ -24,6 +24,8 @@ const DISABLED_UNIT_KEYS: Record<string, string> = {
   "Atom Bomb": "unit_type.atom_bomb",
   "Hydrogen Bomb": "unit_type.hydrogen_bomb",
   MIRV: "unit_type.mirv",
+  "Tactical Missile": "unit_type.tactical_missile",
+  "EMP Bomb": "unit_type.emp_bomb",
   "Trade Ship": "player_stats_table.unit.trade",
   Transport: "player_stats_table.unit.trans",
   "MIRV Warhead": "player_stats_table.unit.mirvw",

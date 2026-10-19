@@ -207,6 +207,9 @@ export enum UnitType {
   MIRVWarhead = "MIRV Warhead",
   Train = "Train",
   Factory = "Factory",
+  // Appended (not inserted): zbin encodes enums by declaration order.
+  TacticalMissile = "Tactical Missile",
+  EMPBomb = "EMP Bomb",
 }
 
 export enum TrainType {
@@ -220,13 +223,32 @@ export const Nukes = unitTypeGroup([
   UnitType.HydrogenBomb,
   UnitType.MIRVWarhead,
   UnitType.MIRV,
+  UnitType.TacticalMissile,
+  UnitType.EMPBomb,
 ] as const);
 
 export const BuildableAttacks = unitTypeGroup([
   UnitType.AtomBomb,
   UnitType.HydrogenBomb,
   UnitType.MIRV,
+  UnitType.TacticalMissile,
+  UnitType.EMPBomb,
   UnitType.Warship,
+] as const);
+
+// Bombs a missile silo fires along a parabola: they take the player's launch
+// direction and get a trajectory preview while placing them.
+export const SiloBombs = unitTypeGroup([
+  UnitType.AtomBomb,
+  UnitType.HydrogenBomb,
+  UnitType.TacticalMissile,
+  UnitType.EMPBomb,
+] as const);
+
+// Silo bombs a player can buy several of in one order (x2, x5, max).
+export const StackableBombs = unitTypeGroup([
+  UnitType.AtomBomb,
+  UnitType.TacticalMissile,
 ] as const);
 
 export const Structures = unitTypeGroup([

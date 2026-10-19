@@ -5,8 +5,10 @@
 
 import {
   UT_ATOM_BOMB,
+  UT_EMP_BOMB,
   UT_HYDROGEN_BOMB,
   UT_MIRV_WARHEAD,
+  UT_TACTICAL_MISSILE,
 } from "../../../types";
 import type { RenderSettings } from "../../RenderSettings";
 
@@ -25,6 +27,10 @@ export function nukeExplosionRadius(
       return fx.nukeRadiusHydro;
     case UT_MIRV_WARHEAD:
       return fx.nukeRadiusMirv;
+    case UT_TACTICAL_MISSILE:
+      return fx.nukeRadiusTactical;
+    case UT_EMP_BOMB:
+      return fx.nukeRadiusEmp;
     default:
       return undefined;
   }

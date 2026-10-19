@@ -4,6 +4,7 @@ import {
   BuildMenus,
   Gold,
   PlayerBuildableUnitType,
+  SiloBombs,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
 import { renderNumber } from "@openfront/engine-lib/Format";
@@ -34,6 +35,8 @@ const mirvIcon = assetUrl("images/MIRVIcon.svg");
 const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
 const hydrogenBombIcon = assetUrl("images/MushroomCloudIconWhite.svg");
 const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
+const tacticalMissileIcon = assetUrl("images/TacticalMissileIconWhite.svg");
+const empBombIcon = assetUrl("images/EMPBombIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
@@ -67,6 +70,20 @@ export const buildTable: BuildItemDisplay[][] = [
       icon: hydrogenBombIcon,
       description: "build_menu.desc.hydrogen_bomb",
       key: "unit_type.hydrogen_bomb",
+      countable: false,
+    },
+    {
+      unitType: UnitType.TacticalMissile,
+      icon: tacticalMissileIcon,
+      description: "build_menu.desc.tactical_missile",
+      key: "unit_type.tactical_missile",
+      countable: false,
+    },
+    {
+      unitType: UnitType.EMPBomb,
+      icon: empBombIcon,
+      description: "build_menu.desc.emp_bomb",
+      key: "unit_type.emp_bomb",
       countable: false,
     },
     {
@@ -391,11 +408,9 @@ export class BuildMenu extends LitElement implements Controller {
         ),
       );
     } else if (buildableUnit.canBuild) {
-      const rocketDirectionUp =
-        buildableUnit.type === UnitType.AtomBomb ||
-        buildableUnit.type === UnitType.HydrogenBomb
-          ? this.uiState.rocketDirectionUp
-          : undefined;
+      const rocketDirectionUp = SiloBombs.has(buildableUnit.type)
+        ? this.uiState.rocketDirectionUp
+        : undefined;
       this.eventBus.emit(
         new BuildUnitIntentEvent(buildableUnit.type, tile, rocketDirectionUp),
       );

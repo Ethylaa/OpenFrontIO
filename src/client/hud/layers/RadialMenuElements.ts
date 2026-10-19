@@ -7,6 +7,8 @@ import {
   NUKE_BULK_STEPS,
   PlayerActions,
   PlayerBuildableUnitType,
+  SiloBombs,
+  StackableBombs,
   STRUCTURE_BULK_STEPS,
   Structures,
   UnitType,
@@ -469,7 +471,7 @@ function createMenuElements(
             return [];
           }
           const isStackableNuke =
-            item.unitType === UnitType.AtomBomb &&
+            StackableBombs.has(item.unitType) &&
             buildableUnit.canBuild !== false;
           if (
             (buildableUnit.canUpgrade === false && !isStackableNuke) ||
@@ -571,11 +573,9 @@ function createMenuElements(
                 ),
               );
             } else if (buildableUnit.canBuild !== false) {
-              const rocketDirectionUp =
-                item.unitType === UnitType.AtomBomb ||
-                item.unitType === UnitType.HydrogenBomb
-                  ? params.uiState?.rocketDirectionUp
-                  : undefined;
+              const rocketDirectionUp = SiloBombs.has(item.unitType)
+                ? params.uiState?.rocketDirectionUp
+                : undefined;
               params.eventBus.emit(
                 new BuildUnitIntentEvent(
                   buildableUnit.type,

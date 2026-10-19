@@ -12,6 +12,8 @@ import {
   BuildableUnit,
   bulkCost,
   PlayerBuildableUnitType,
+  SiloBombs,
+  StackableBombs,
   Structures,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
@@ -38,9 +40,9 @@ import { UIState } from "../UIState";
 import { UserSettings } from "../UserSettings";
 import { GameView } from "../view";
 
-/** True for nuke types (AtomBomb, HydrogenBomb): ghost is preserved after placement so user can place multiple or keep selection (Enter/key confirm). */
+/** True for silo bomb types (atom, hydrogen, tactical, EMP): ghost is preserved after placement so user can place multiple or keep selection (Enter/key confirm). */
 export function shouldPreserveGhostAfterBuild(unitType: UnitType): boolean {
-  return unitType === UnitType.AtomBomb || unitType === UnitType.HydrogenBomb;
+  return SiloBombs.has(unitType);
 }
 
 // tSamIntercept value used to flag an untargetable (impassable) destination:
@@ -231,10 +233,13 @@ export class BuildPreviewController implements Controller {
     let targetingAlly = false;
     const myPlayer = this.game.myPlayer();
     const nukeType = this.ghostUnit.buildableUnit.type;
+    // An EMP never hurts allies, so it gets no ally warning.
     if (
       tileRef &&
       myPlayer &&
-      (nukeType === UnitType.AtomBomb || nukeType === UnitType.HydrogenBomb)
+      (nukeType === UnitType.AtomBomb ||
+        nukeType === UnitType.HydrogenBomb ||
+        nukeType === UnitType.TacticalMissile)
     ) {
       this.connectedAllySmallIds.clear();
       const allies = myPlayer.allies();
@@ -317,7 +322,7 @@ export class BuildPreviewController implements Controller {
   }
 
   /**
-   * For AtomBomb / HydrogenBomb ghosts, push the Bezier trajectory preview
+   * For silo bomb ghosts (SiloBombs), push the Bezier trajectory preview
    * (closest player-owned silo → target, accounting for non-allied SAMs).
    * Cleared whenever the ghost isn't a nuke, has no target, or the player
    * has no silos. Unlike the ghost icon, the trajectory also renders when
@@ -329,7 +334,7 @@ export class BuildPreviewController implements Controller {
       return;
     }
     const type = this.ghostUnit.buildableUnit.type;
-    if (type !== UnitType.AtomBomb && type !== UnitType.HydrogenBomb) {
+    if (!SiloBombs.has(type)) {
       this.clearNukeTrajectory();
       return;
     }
@@ -390,7 +395,10 @@ export class BuildPreviewController implements Controller {
           })
         : new Set();
     const sams: SAMInfo[] = [];
-    for (const s of this.game.units(UnitType.SAMLauncher)) {
+    // SAMs never target EMP bombs, so nothing threatens their arc.
+    const threateningSams =
+      type === UnitType.EMPBomb ? [] : this.game.units(UnitType.SAMLauncher);
+    for (const s of threateningSams) {
       if (!s.isActive()) continue;
       const owner = s.owner();
       if (owner === myPlayer) continue;
@@ -465,6 +473,8 @@ export class BuildPreviewController implements Controller {
       }
       case UnitType.AtomBomb:
       case UnitType.HydrogenBomb:
+      case UnitType.TacticalMissile:
+      case UnitType.EMPBomb:
         rangeRadius = this.game.config().nukeMagnitudes(u.type).outer;
         break;
       case UnitType.Factory:
@@ -485,7 +495,7 @@ export class BuildPreviewController implements Controller {
       radiusTileY = this.game.y(upgradeTargetTile);
     }
 
-    const isNuke = u.type === UnitType.AtomBomb;
+    const isNuke = StackableBombs.has(u.type);
     const multiplier =
       u.canUpgrade !== false || isNuke
         ? (this.uiState.upgradeMultiplier ?? 1)
@@ -565,11 +575,10 @@ export class BuildPreviewController implements Controller {
         return;
       }
 
-      const isNuke = unitType === UnitType.AtomBomb;
-      const rocketDirectionUp =
-        unitType === UnitType.AtomBomb || unitType === UnitType.HydrogenBomb
-          ? this.uiState.rocketDirectionUp
-          : undefined;
+      const isNuke = StackableBombs.has(unitType);
+      const rocketDirectionUp = SiloBombs.has(unitType)
+        ? this.uiState.rocketDirectionUp
+        : undefined;
       this.eventBus.emit(
         new BuildUnitIntentEvent(
           unitType,
@@ -595,6 +604,7 @@ export class BuildPreviewController implements Controller {
       duration <= 0 ||
       (unitType !== UnitType.AtomBomb &&
         unitType !== UnitType.HydrogenBomb &&
+        unitType !== UnitType.TacticalMissile &&
         unitType !== UnitType.MIRV)
     ) {
       return false;
