@@ -1602,6 +1602,8 @@ export class PlayerImpl implements Player {
         return this.nukeSpawn(targetTile, unitType);
       case UnitType.AtomBomb:
       case UnitType.HydrogenBomb:
+      case UnitType.TacticalMissile:
+      case UnitType.EMPBomb:
         return this.nukeSpawn(targetTile, unitType);
       case UnitType.MIRVWarhead:
         return targetTile;
@@ -1652,9 +1654,11 @@ export class PlayerImpl implements Player {
 
     // Prevent launching nukes that would hit teammate structures (only in team games).
     // Disabled after game-over so players can nuke teammates in the aftergame.
+    // An EMP never affects teammates, so it may land next to their structures.
     if (
       config.gameConfig().gameMode === GameMode.Team &&
       nukeType !== UnitType.MIRV &&
+      nukeType !== UnitType.EMPBomb &&
       !gameOver
     ) {
       const magnitude = config.nukeMagnitudes(nukeType);

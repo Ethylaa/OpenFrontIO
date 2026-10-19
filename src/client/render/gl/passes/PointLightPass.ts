@@ -12,6 +12,7 @@ import {
   UT_ATOM_BOMB,
   UT_CITY,
   UT_DEFENSE_POST,
+  UT_EMP_BOMB,
   UT_FACTORY,
   UT_HYDROGEN_BOMB,
   UT_MIRV,
@@ -19,6 +20,7 @@ import {
   UT_MISSILE_SILO,
   UT_PORT,
   UT_SAM_LAUNCHER,
+  UT_TACTICAL_MISSILE,
   UT_TRADE_SHIP,
   UT_TRAIN,
   UT_TRANSPORT,
@@ -56,6 +58,8 @@ const LIGHT_CONFIGS: Record<string, LightConfig> = {
   [UT_HYDROGEN_BOMB]: { r: 1.0, g: 0.95, b: 0.6, radius: 22, intensity: 1.3 },
   [UT_MIRV]: { r: 1.0, g: 0.9, b: 0.7, radius: 18, intensity: 1.2 },
   [UT_MIRV_WARHEAD]: { r: 1.0, g: 0.6, b: 0.3, radius: 12, intensity: 1.0 },
+  [UT_TACTICAL_MISSILE]: { r: 1.0, g: 0.7, b: 0.4, radius: 10, intensity: 1.0 },
+  [UT_EMP_BOMB]: { r: 0.5, g: 0.8, b: 1.0, radius: 20, intensity: 1.3 },
   // A train is many UT_TRAIN units (engine + tail + carriages) in a line, and
   // lights blend additively — keep per-unit intensity low (~a trade ship's
   // brightness ÷ car count) so the train corridor doesn't blow out.

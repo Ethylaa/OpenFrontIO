@@ -315,6 +315,8 @@ export class Config {
       case UnitType.MIRVWarhead:
       case UnitType.TradeShip:
       case UnitType.Train:
+      case UnitType.TacticalMissile:
+      case UnitType.EMPBomb:
         info = {};
         break;
       default:
@@ -476,8 +478,26 @@ export class Config {
         return { inner: 12, outer: 30 };
       case UnitType.HydrogenBomb:
         return { inner: 80, outer: 100 };
+      case UnitType.TacticalMissile:
+        return { inner: 5, outer: 8 };
+      case UnitType.EMPBomb:
+        // Destroys nothing: outer is the radius of the electromagnetic pulse.
+        return { inner: 0, outer: 50 };
     }
     throw new Error(`Unknown nuke type: ${unitType}`);
+  }
+
+  /**
+   * Extra ticks an EMP keeps a SAM launcher or missile silo knocked out: every
+   * missile slot restarts its normal reload only this long after the pulse.
+   */
+  empDisableExtraTicks(): Tick {
+    return 20 * 10;
+  }
+
+  /** Share of a warship's max health an EMP pulse burns away (percent). */
+  empWarshipDamagePercent(): number {
+    return 40;
   }
 
   nukeAllianceBreakThreshold(): number {

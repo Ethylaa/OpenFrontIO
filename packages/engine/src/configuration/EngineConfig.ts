@@ -356,6 +356,10 @@ export class EngineConfig extends Config {
         return this.costWrapper(() => 750_000, UnitType.AtomBomb);
       case UnitType.HydrogenBomb:
         return this.costWrapper(() => 5_000_000, UnitType.HydrogenBomb);
+      case UnitType.TacticalMissile:
+        return this.costWrapper(() => 200_000, UnitType.TacticalMissile);
+      case UnitType.EMPBomb:
+        return this.costWrapper(() => 1_000_000, UnitType.EMPBomb);
       case UnitType.MIRV:
         return (game: Game, player: Player) => {
           if (
@@ -689,6 +693,10 @@ export class EngineConfig extends Config {
         return 15;
       case UnitType.MIRVWarhead:
         return 22;
+      case UnitType.TacticalMissile:
+        return 14;
+      case UnitType.EMPBomb:
+        return 12;
     }
     throw new Error(`Unknown nuke type: ${unitType}`);
   }

@@ -91,6 +91,16 @@ export interface UnitParamsMap {
     trajectory: TrajectoryTile[];
   };
 
+  [UnitType.TacticalMissile]: {
+    targetTile?: number;
+    trajectory: TrajectoryTile[];
+  };
+
+  [UnitType.EMPBomb]: {
+    targetTile?: number;
+    trajectory: TrajectoryTile[];
+  };
+
   [UnitType.TradeShip]: {
     targetUnit: Unit;
     lastSetSafeFromPirates?: number;
@@ -278,6 +288,12 @@ export interface Unit extends UnitLike {
   reloadMissile(): void;
   isInCooldown(): boolean;
   missileTimerQueue(): number[];
+  /**
+   * EMP knock-out: every missile slot is spent and only starts its normal
+   * reload at `reloadStartTick` (a future tick), so the launcher can't fire
+   * until then.
+   */
+  empDisable(reloadStartTick: Tick): void;
   samLauncherState(): SamLauncherState | undefined;
 
   // Trade Ships

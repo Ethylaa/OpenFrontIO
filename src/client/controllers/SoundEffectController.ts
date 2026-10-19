@@ -128,6 +128,8 @@ export class SoundEffectController implements Controller {
     }
     switch (unit.type()) {
       case UnitType.AtomBomb:
+      case UnitType.TacticalMissile:
+      case UnitType.EMPBomb:
         this.onNukeDetonation(unit, "atom-hit");
         break;
       case UnitType.MIRVWarhead:
@@ -154,6 +156,8 @@ export class SoundEffectController implements Controller {
     const myPlayer = this.game.myPlayer();
     switch (unit.type()) {
       case UnitType.AtomBomb:
+      case UnitType.TacticalMissile:
+      case UnitType.EMPBomb:
         this.emit("atom-launch");
         break;
       case UnitType.HydrogenBomb:
