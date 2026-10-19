@@ -1118,6 +1118,7 @@ export class PlayerImpl implements Player {
     if (recipient === this) {
       return false;
     }
+
     if (
       !this.isAlive() ||
       !recipient.isAlive() ||
@@ -1142,6 +1143,25 @@ export class PlayerImpl implements Player {
       }
     }
     return true;
+  }
+
+  canBuyTerritory(target: Player): boolean {
+    return (
+      target !== this &&
+      this.isAlive() &&
+      target.isAlive() &&
+      !this.isFriendly(target) &&
+      target.numTilesOwned() > 0 &&
+      this.gold() >= this.territoryPurchaseCost(target)
+    );
+  }
+
+  territoryPurchaseCost(target: Player): Gold {
+    let value = BigInt(target.numTilesOwned()) * 1_000n;
+    for (const unit of target.units()) {
+      if (unit.isActive()) value += unit.info().cost(this.mg, target);
+    }
+    return (value * 3n) / 2n;
   }
 
   donateTroops(recipient: Player, troops: number): boolean {

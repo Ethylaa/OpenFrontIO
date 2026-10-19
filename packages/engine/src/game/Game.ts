@@ -475,6 +475,8 @@ export interface Player extends PlayerLike {
   // Donation
   canDonateGold(recipient: Player): boolean;
   canDonateTroops(recipient: Player): boolean;
+  canBuyTerritory(target: Player): boolean;
+  territoryPurchaseCost(target: Player): Gold;
   donateTroops(recipient: Player, troops: number): boolean;
   donateGold(recipient: Player, gold: Gold): boolean;
   canDeleteUnit(): boolean;

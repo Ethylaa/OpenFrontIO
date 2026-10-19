@@ -355,6 +355,7 @@ export class GameRunner {
         canBreakAlliance: player.isAlliedWith(other),
         canDonateGold: player.canDonateGold(other),
         canDonateTroops: player.canDonateTroops(other),
+        canBuyTerritory: player.canBuyTerritory(other),
         canEmbargo: !player.hasEmbargoAgainst(other),
         allianceInfo: player.allianceInfo(other) ?? undefined,
       };

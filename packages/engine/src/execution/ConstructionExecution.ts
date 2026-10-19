@@ -123,7 +123,7 @@ export class ConstructionExecution implements Execution {
       case UnitType.EMPBomb: {
         const count = this.amount ?? 1;
         for (let i = 0; i < count; i++) {
-          // NukeExecution staggers same-tick launches per silo itself.
+          // A batch is launched as a same-tick salvo from the selected silo.
           this.mg.addExecution(
             new NukeExecution(
               this.constructionType,

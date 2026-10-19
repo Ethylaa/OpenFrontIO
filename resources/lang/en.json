@@ -203,6 +203,7 @@
       "tactical_missile": "Cheap precision strike with a tiny blast radius, ideal for sniping a SAM or a silo",
       "warship": "Captures trade ships, destroys ships and boats"
     },
+    "max": "MAX",
     "not_enough_money": "Not enough money",
     "upgrade_amount": "x{amount}",
     "warship_shift_hint": "Hold Shift and drag to select multiple warships at once"
@@ -622,6 +623,7 @@
     "target_dead_note": "You can't send resources to an eliminated player."
   },
   "control_panel": {
+    "buy_troops": "MAX troops",
     "allied_afk_neighbor_info": "You can attack disconnected players even if you are allied with them.",
     "army_limit_warning": "You're near your army limit! Consider sending troops to teammates.",
     "attack_ratio": "{percent}%\n({troops})",
@@ -2129,6 +2131,7 @@
     "visit_store": "Visit store"
   },
   "radial_menu": {
+    "buy_territory": "Buy territory",
     "delete_unit_description": "Click to delete the nearest unit",
     "delete_unit_title": "Delete Unit",
     "upgrade_x": "Upgrade x{amount}"

@@ -587,7 +587,7 @@ export class BuildPreviewController implements Controller {
           isNuke ? this.uiState.upgradeMultiplier || 1 : undefined,
         ),
       );
-      if (!shouldPreserveGhostAfterBuild(unitType)) {
+      if (!e.shiftKey && !shouldPreserveGhostAfterBuild(unitType)) {
         this.removeGhostStructure();
       }
     } else {

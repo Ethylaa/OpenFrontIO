@@ -30,6 +30,7 @@ import { TooltipItem } from "./RadialMenu";
 
 import { EventBus } from "@openfront/shared/EventBus";
 import {
+  BuyTerritoryIntentEvent,
   BuildUnitIntentEvent,
   SendUpgradeStructureIntentEvent,
 } from "../../Transport";
@@ -310,6 +311,21 @@ const allyDonateTroopsElement: MenuElement = {
   icon: donateTroopIcon,
   action: (params: MenuElementParams) => {
     params.playerActionHandler.handleDonateTroops(params.selected!);
+    params.closeMenu();
+  },
+};
+
+const buyTerritoryElement: MenuElement = {
+  id: "buy_territory",
+  name: "buy_territory",
+  disabled: (params: MenuElementParams) =>
+    !params.playerActions?.interaction?.canBuyTerritory,
+  color: COLORS.ally,
+  icon: donateGoldIcon,
+  action: (params: MenuElementParams) => {
+    if (params.selected) {
+      params.eventBus.emit(new BuyTerritoryIntentEvent(params.selected));
+    }
     params.closeMenu();
   },
 };
@@ -810,9 +826,9 @@ export const rootMenuElement: MenuElement = {
         : [
             isAllied && !isDisconnected ? allyBreakElement : boatMenuElement,
             inExtensionWindow ? allyExtendElement : allyRequestElement,
-            showDonateInsteadOfAttack
-              ? donateGoldRadialElement
-              : attackMenuElement,
+            ...(showDonateInsteadOfAttack
+              ? [donateGoldRadialElement]
+              : [attackMenuElement, buyTerritoryElement]),
           ]),
     ];
 

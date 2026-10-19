@@ -10,6 +10,7 @@ import {
   GameMode,
   GameType,
   HumansVsNations,
+  MAX_BUILD_AMOUNT,
   MAX_UPGRADE_AMOUNT,
   Quads,
   RankedType,
@@ -35,6 +36,8 @@ export type Intent =
   | EmojiIntent
   | DonateGoldIntent
   | DonateTroopsIntent
+  | BuyTroopsIntent
+  | BuyTerritoryIntent
   | BuildUnitIntent
   | EmbargoIntent
   | QuickChatIntent
@@ -61,6 +64,8 @@ export type TargetPlayerIntent = z.infer<typeof TargetPlayerIntentSchema>;
 export type EmojiIntent = z.infer<typeof EmojiIntentSchema>;
 export type DonateGoldIntent = z.infer<typeof DonateGoldIntentSchema>;
 export type DonateTroopsIntent = z.infer<typeof DonateTroopIntentSchema>;
+export type BuyTroopsIntent = z.infer<typeof BuyTroopsIntentSchema>;
+export type BuyTerritoryIntent = z.infer<typeof BuyTerritoryIntentSchema>;
 export type EmbargoIntent = z.infer<typeof EmbargoIntentSchema>;
 export type BuildUnitIntent = z.infer<typeof BuildUnitIntentSchema>;
 export type UpgradeStructureIntent = z.infer<
@@ -489,12 +494,21 @@ export const DonateTroopIntentSchema = z.object({
   troops: zb.float({ min: 0 }).nullable(),
 });
 
+export const BuyTroopsIntentSchema = z.object({
+  type: z.literal("buy_troops"),
+});
+
+export const BuyTerritoryIntentSchema = z.object({
+  type: z.literal("buy_territory"),
+  target: MappedID,
+});
+
 export const BuildUnitIntentSchema = z.object({
   type: z.literal("build_unit"),
   unit: z.enum(UnitType),
   tile: zb.uint(),
   rocketDirectionUp: z.boolean().optional(),
-  amount: zb.uint({ min: 1, max: MAX_UPGRADE_AMOUNT }).optional(),
+  amount: zb.uint({ min: 1, max: MAX_BUILD_AMOUNT }).optional(),
 });
 
 export const UpgradeStructureIntentSchema = z.object({
@@ -580,6 +594,8 @@ export const IntentSchema = z.discriminatedUnion("type", [
   EmojiIntentSchema,
   DonateGoldIntentSchema,
   DonateTroopIntentSchema,
+  BuyTroopsIntentSchema,
+  BuyTerritoryIntentSchema,
   BuildUnitIntentSchema,
   UpgradeStructureIntentSchema,
   EmbargoIntentSchema,

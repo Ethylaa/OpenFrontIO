@@ -44,6 +44,8 @@ import { TransportShipExecutionSnapshot } from "../execution/TransportShipExecut
 import { TribeExecutionSnapshot } from "../execution/TribeExecution";
 import { UnderdogExecutionSnapshot } from "../execution/UnderdogExecution";
 import { UpgradeStructureExecutionSnapshot } from "../execution/UpgradeStructureExecution";
+import { BuyTroopsExecutionSnapshot } from "../execution/BuyTroopsExecution";
+import { BuyTerritoryExecutionSnapshot } from "../execution/BuyTerritoryExecution";
 import { WarshipExecutionSnapshot } from "../execution/WarshipExecution";
 import { WinCheckExecutionSnapshot } from "../execution/WinCheckExecution";
 import type { ExecutionSnapshotType } from "./ExecutionSnapshot";
@@ -101,6 +103,8 @@ export const EXECUTION_SNAPSHOT_TYPES = [
   TribeExecutionSnapshot,
   UnderdogExecutionSnapshot,
   UpgradeStructureExecutionSnapshot,
+  BuyTroopsExecutionSnapshot,
+  BuyTerritoryExecutionSnapshot,
   WarshipExecutionSnapshot,
   WinCheckExecutionSnapshot,
 ] as unknown as readonly ExecutionSnapshotType<unknown>[];
